@@ -1,7 +1,7 @@
 const SITE = 'https://ehis.gay'
 const PINK = 0xf2c6de
 const PINK_MID = 0xd494b7
-const LOGO = `${SITE}/src/img/logo_round_rev.png`
+const LOGO = `${SITE}/src/img/icon.png`
 
 const linkButton = (url, label) => ({ type: 2, style: 5, url, label })
 
