@@ -584,13 +584,16 @@ function saveJail(jail) {
 function escalate(source) {
   const now = Date.now()
   const cur = readJail()
-  const base = Math.max(1, (source && source.wait) || (cur && cur.wait) || DEFAULT_RETRY)
-  const next = Math.min(CAP, Math.max(base, Math.round(base * (base * 2 + 30))))
+  const prev = source && source.until ? source : cur
+  const base = Math.max(1, (prev && prev.wait) || DEFAULT_RETRY)
+  const until = (prev && prev.until) || now
+  const left = Math.max(1, Math.ceil((until - now) / 1000))
+  const next = Math.min(CAP, left + (base * 2 + 30))
   escalatedThisMount = true
   saveJail({
     until: now + next * 1000,
     wait: next,
-    strikes: ((source && source.strikes) || 1) + 1
+    strikes: ((prev && prev.strikes) || 1) + 1
   })
 }
 
