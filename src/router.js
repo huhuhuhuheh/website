@@ -16,6 +16,7 @@ export const router = createRouter({
     { path: '/downloads', name: 'downloads', component: DownloadsPage },
     { path: '/donate', name: 'donate', component: DonatePage },
     { path: '/ehnewtab', name: 'ehnewtab', component: EhNewTabPage },
+    { path: '/license', name: 'license', component: () => import('./pages/LicensePage.vue') },
     { path: '/:pathMatch(.*)*', name: 'error', component: ErrorPage, props: { code: 404 } }
   ],
   scrollBehavior(to) {

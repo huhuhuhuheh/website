@@ -223,5 +223,32 @@ export const discordEmbeds = {
         ]
       }
     ]
+  },
+
+  '/license': {
+    accentColor: PINK_MID,
+    og: {
+      title: 'License',
+      description:
+        'the website code is licensed under 0BSD. third-party assets are not covered.',
+      image: LOGO
+    },
+    components: [
+      {
+        type: 9,
+        components: [
+          {
+            type: 10,
+            content: `## [License](${SITE}/license)\nthe website code is licensed under [0BSD](https://opensource.org/license/0bsd), third-party assets are not covered.`
+          }
+        ],
+        accessory: { type: 11, media: { url: LOGO } }
+      },
+      { type: 14, spacing: 1 },
+      {
+        type: 1,
+        components: [linkButton('https://github.com/huhuhuhuheh/website', 'Source on GitHub')]
+      }
+    ]
   }
 }

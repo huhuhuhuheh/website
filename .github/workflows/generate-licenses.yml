@@ -1,0 +1,45 @@
+name: Generate Licenses
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - package.json
+      - package-lock.json
+      - scripts/gen-licenses.mjs
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-licenses
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Regenerate licenses.json
+        run: npm run licenses
+
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet -- src/data/licenses.json; then
+            echo "licenses.json is already up to date"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/licenses.json
+          git commit -m "Generate (or regenerate) Licenses"
+          git push

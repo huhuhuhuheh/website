@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import { ErrorCat } from '../lib/ErrorCat'
 
 const props = defineProps({
   code: { type: Number, default: 404 },
@@ -679,20 +680,34 @@ watch(
 
 <template>
   <section class="page err">
-    <h1 class="code">{{ code }}</h1>
-    <p class="msg">{{ title }}</p>
-    <p class="path">
-      you asked for <code>{{ route.fullPath }}</code> and i came back empty-pawed :c
-    </p>
-
-    <span v-if="jailed" class="back jailed">
-      [ you can try again in {{ fmt(remaining) }} ]
-    </span>
+    <template v-if="ErrorCat">
+      <img class="catpic" :src="`https://http.cat/${code}.jpg`" :alt="`${code} cat`" />
+      <span v-if="jailed" class="back jailed">
+        [ you can try again in {{ fmt(remaining) }} ]
+      </span>
+      <template v-else>
+        <RouterLink class="back" to="/">[ take me home ]</RouterLink>
+        <button v-if="code === 429" class="back retry" type="button" @click="retry">
+          [ try again ]
+        </button>
+      </template>
+    </template>
     <template v-else>
-      <RouterLink class="back" to="/">[ take me home ]</RouterLink>
-      <button v-if="code === 429" class="back retry" type="button" @click="retry">
-        [ try again ]
-      </button>
+      <h1 class="code">{{ code }}</h1>
+      <p class="msg">{{ title }}</p>
+      <p class="path">
+        you asked for <code>{{ route.fullPath }}</code> and i came back empty-pawed :c
+      </p>
+
+      <span v-if="jailed" class="back jailed">
+        [ you can try again in {{ fmt(remaining) }} ]
+      </span>
+      <template v-else>
+        <RouterLink class="back" to="/">[ take me home ]</RouterLink>
+        <button v-if="code === 429" class="back retry" type="button" @click="retry">
+          [ try again ]
+        </button>
+      </template>
     </template>
   </section>
 </template>
@@ -705,6 +720,13 @@ watch(
   justify-content: center;
   gap: 1rem;
   padding-top: 1rem;
+}
+
+.catpic {
+  width: min(100%, 30rem);
+  border: 1px solid var(--border-hi);
+  border-radius: 12px;
+  background: var(--bg-alt);
 }
 
 .code {

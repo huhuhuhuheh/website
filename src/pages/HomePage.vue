@@ -21,6 +21,16 @@ import { nav } from '../data/nav'
         >bluesky</a>
         where i also post, i guess
       </p>
+      <p>
+        <a class="inline nostalgic" href="https://old.ehis.gay" target="_blank" rel="noopener">
+          Feel nostalgic?
+          <svg class="external" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 3h7v7" />
+            <path d="M10 14 21 3" />
+            <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+          </svg>
+        </a>
+      </p>
     </div>
   </section>
 </template>
@@ -35,5 +45,21 @@ import { nav } from '../data/nav'
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+}
+
+.nostalgic {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.nostalgic .external {
+  width: 9px;
+  height: 9px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 </style>
