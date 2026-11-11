@@ -86,6 +86,9 @@ import { nav } from '../data/nav'
         <a href="https://chrome.google.com/webstore/detail/bbbhgkjjohfoaefdaljchaoagaegjbpa" target="_blank" rel="noopener">
           <img src="/src/img/addon/get-chrome.png" alt="Available in the Chrome Web Store" />
         </a>
+        <a href="https://microsoftedge.microsoft.com/addons/detail/pegbljbkaiefhknapfbfdodeephfiabp" target="_blank" rel="noopener">
+          <img src="/src/img/addon/get-edge.png" alt="Get it from Microsoft Edge" />
+        </a>
       </div>
 
       <h3>Stoat... or Revolt?</h3>

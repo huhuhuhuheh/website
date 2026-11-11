@@ -256,6 +256,9 @@ onBeforeUnmount(() => {
       <a href="https://chrome.google.com/webstore/detail/bbbhgkjjohfoaefdaljchaoagaegjbpa" target="_blank" rel="noopener">
         <img src="/src/img/addon/get-chrome.png" alt="Available in the Chrome Web Store" />
       </a>
+      <a href="https://microsoftedge.microsoft.com/addons/detail/pegbljbkaiefhknapfbfdodeephfiabp" target="_blank" rel="noopener">
+        <img src="/src/img/addon/get-edge.png" alt="Get it from Microsoft Edge Add-ons" />
+      </a>
       <a class="gh-badge" href="https://github.com/ehshit/ehnewtab/" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
