@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 const props = defineProps({
@@ -510,6 +510,168 @@ const title = computed(() => {
   const list = messages.value
   return list[Math.floor(Math.random() * list.length)]
 })
+
+const RL_KEY = 'ehis:rate-limit'
+const RL_CHANNEL = 'ehis_rate_limit_jail'
+const CAP = 5400
+const DEFAULT_RETRY = 30
+
+const jailed = ref(false)
+const remaining = ref(0)
+let timer = null
+let channel = null
+let escalatedThisMount = false
+
+function readJail() {
+  try {
+    return JSON.parse(localStorage.getItem(RL_KEY) || 'null')
+  } catch {
+    return null
+  }
+}
+
+function writeJail(jail) {
+  try {
+    localStorage.setItem(RL_KEY, JSON.stringify(jail))
+  } catch {}
+}
+
+function clearJail() {
+  try {
+    localStorage.removeItem(RL_KEY)
+  } catch {}
+}
+
+function fmt(sec) {
+  const s = Math.max(0, Math.floor(sec))
+  const h = Math.floor(s / 3600)
+  const m = Math.floor((s % 3600) / 60)
+  const r = s % 60
+  if (h > 0) return `${h}h ${String(m).padStart(2, '0')}m ${String(r).padStart(2, '0')}s`
+  if (m > 0) return `${m}m ${String(r).padStart(2, '0')}s`
+  return `${r}s`
+}
+
+function stopTimer() {
+  if (timer) {
+    clearInterval(timer)
+    timer = null
+  }
+}
+
+function startCountdown(until) {
+  stopTimer()
+  const tick = () => {
+    const left = Math.ceil((until - Date.now()) / 1000)
+    remaining.value = Math.max(0, left)
+    if (left <= 0) {
+      stopTimer()
+      jailed.value = false
+      clearJail()
+    }
+  }
+  tick()
+  timer = setInterval(tick, 1000)
+}
+
+function saveJail(jail) {
+  writeJail(jail)
+  jailed.value = true
+  startCountdown(jail.until)
+  if (channel) channel.postMessage({ type: 'STATE', jail })
+}
+
+function escalate(source) {
+  const now = Date.now()
+  const cur = readJail()
+  const base = Math.max(1, (source && source.wait) || (cur && cur.wait) || DEFAULT_RETRY)
+  const next = Math.min(CAP, Math.max(base, Math.round(base * (base * 2 + 30))))
+  escalatedThisMount = true
+  saveJail({
+    until: now + next * 1000,
+    wait: next,
+    strikes: ((source && source.strikes) || 1) + 1
+  })
+}
+
+function initJail() {
+  if (code.value !== 429) return
+  const now = Date.now()
+  const existing = readJail()
+
+  if (existing && existing.until > now) {
+    escalate(existing)
+  } else {
+    const q = parseInt(route.query.retry, 10)
+    const wait = Math.min(CAP, Math.max(1, Number.isFinite(q) ? q : DEFAULT_RETRY))
+    saveJail({ until: now + wait * 1000, wait, strikes: 1 })
+  }
+
+  if (channel) channel.postMessage({ type: 'PING' })
+}
+
+function retry() {
+  location.reload()
+}
+
+function onStorage(e) {
+  if (e.key !== RL_KEY) return
+  const jail = readJail()
+  if (jail && jail.until > Date.now()) {
+    jailed.value = true
+    startCountdown(jail.until)
+  }
+}
+
+function onChannel(event) {
+  const data = event.data
+  if (!data || !data.type) return
+
+  if (data.type === 'PING') {
+    const jail = readJail()
+    if (jail && jail.until > Date.now() && channel) {
+      channel.postMessage({ type: 'PONG', jail })
+    }
+  } else if (data.type === 'PONG') {
+    if (!escalatedThisMount && code.value === 429) escalate(data.jail)
+  } else if (data.type === 'STATE' && data.jail) {
+    if (data.jail.until > Date.now()) {
+      jailed.value = true
+      startCountdown(data.jail.until)
+    }
+  }
+}
+
+onMounted(() => {
+  try {
+    channel = new BroadcastChannel(RL_CHANNEL)
+    channel.onmessage = onChannel
+  } catch {
+    channel = null
+  }
+  initJail()
+  window.addEventListener('storage', onStorage)
+})
+
+onBeforeUnmount(() => {
+  stopTimer()
+  window.removeEventListener('storage', onStorage)
+  if (channel) {
+    channel.close()
+    channel = null
+  }
+})
+
+watch(
+  () => code.value,
+  (next, prev) => {
+    if (next === 429 && prev !== 429) initJail()
+    if (next !== 429) {
+      stopTimer()
+      jailed.value = false
+    }
+  }
+)
 </script>
 
 <template>
@@ -519,7 +681,16 @@ const title = computed(() => {
     <p class="path">
       you asked for <code>{{ route.fullPath }}</code> and i came back empty-pawed :c
     </p>
-    <RouterLink class="back" to="/">[ take me home ]</RouterLink>
+
+    <span v-if="jailed" class="back jailed">
+      [ you can try again in {{ fmt(remaining) }} ]
+    </span>
+    <template v-else>
+      <RouterLink class="back" to="/">[ take me home ]</RouterLink>
+      <button v-if="code === 429" class="back retry" type="button" @click="retry">
+        [ try again ]
+      </button>
+    </template>
   </section>
 </template>
 
@@ -577,5 +748,16 @@ const title = computed(() => {
   color: var(--pink);
   background: #1b171b;
   outline: none;
+}
+
+.back.jailed {
+  color: var(--text-muted);
+  border-style: dashed;
+  cursor: default;
+  font-variant-numeric: tabular-nums;
+}
+
+.back.retry {
+  cursor: pointer;
 }
 </style>
