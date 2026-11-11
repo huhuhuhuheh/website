@@ -88,7 +88,7 @@ export const discordEmbeds = {
       { type: 14, spacing: 1 },
       {
         type: 10,
-        content: `**NO TRACKING, NO BLOAT, EVER:**\nThe extension does not connect to any of eh's services, includes no telemetry, and adds no ads, weather or similar junk, so you don't have to worry about your data!*\n**JUST A BACKGROUND, WITHOUT THE CORPORATE:**\nApart from reddit, it lets you grab backgrounds from safebooru, any Redlib instance, any URL you want, or just a static image from your device!\n**IT HAS THEMES:**\nIt comes with built-in ones, but if you feel those aren't good enough, you can make your own with CSS!\n**DOODLES & MORE:**\nEh's New Tab offers a doodle system (similar to Google's doodles, but our own) so your new tab can get stupid, silly, and random seasonal doodles that show up on their own!`
+        content: `**NO TRACKING, NO BLOAT, EVER:**\nThe extension does not connect to any of eh's services, includes no telemetry, and adds no ads, weather or similar junk, so you don't have to worry about your data!*\n**JUST A BACKGROUND, WITHOUT THE CORPORATE:**\nApart from reddit, it lets you grab backgrounds from safebooru, any Redlib instance, any URL you want, or just a static image from your device!\n**IT HAS THEMES:**\nIt comes with built-in ones, but if you feel those aren't good enough, you can make your own with CSS!\n**DOODLES & MORE:**\nEh's New Tab offers a doodle system (similar to Google's doodles, but our own) so your new tab can get stupid, silly, and random seasonal doodles that show up on their own!\n-# * This does not apply when it connects to safebooru, Reddit, any Redlib instance, or any URL you choose, in order to fetch a background.`
       },
       {
         type: 12,
@@ -138,18 +138,21 @@ export const discordEmbeds = {
     og: {
       title: 'Wallpapers & Others',
       description: 'desktop wallpapers, cursors and other little things.',
-      image: LOGO
+      image: `${SITE}/src/img/desk-backgro/gtl.jpg`
     },
     components: [
       {
-        type: 9,
-        components: [
+        type: 10,
+        content: `## [Wallpapers & Others](${SITE}/wallpapers)\ndesktop wallpapers, cursors and other little things.`
+      },
+      {
+        type: 12,
+        items: [
           {
-            type: 10,
-            content: `## [Wallpapers & Others](${SITE}/wallpapers)\ndesktop wallpapers, cursors and other little things.`
+            media: { url: `${SITE}/src/img/desk-backgro/gtl.jpg` },
+            description: 'girls last tour wallpaper'
           }
-        ],
-        accessory: { type: 11, media: { url: LOGO } }
+        ]
       },
       { type: 14, spacing: 1 },
       {
