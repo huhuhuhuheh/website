@@ -34,7 +34,7 @@ import { nav } from '../data/nav'
             rel="noopener"
           >Wheres The R?</a>
           — usually changes the logo from the new "purple" one
-          (<a href="/stuff/logo_round_rev.png" target="_blank" rel="noopener">reference</a>)
+          (<a href="/src/img/logo_round_rev.png" target="_blank" rel="noopener">reference</a>)
           back to where it was (also changing some parts from Stoat to Revolt) (for the revite client)
         </li>
         <li>

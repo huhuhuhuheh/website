@@ -5,6 +5,7 @@ import WallpapersPage from './pages/WallpapersPage.vue'
 import DownloadsPage from './pages/DownloadsPage.vue'
 import DonatePage from './pages/DonatePage.vue'
 import EhNewTabPage from './pages/EhNewTabPage.vue'
+import ErrorPage from './pages/ErrorPage.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -15,7 +16,7 @@ export const router = createRouter({
     { path: '/downloads', name: 'downloads', component: DownloadsPage },
     { path: '/donate', name: 'donate', component: DonatePage },
     { path: '/ehnewtab', name: 'ehnewtab', component: EhNewTabPage },
-    { path: '/:pathMatch(.*)*', redirect: '/' }
+    { path: '/:pathMatch(.*)*', name: 'error', component: ErrorPage, props: { code: 404 } }
   ],
   scrollBehavior(to) {
     if (to.hash) return { el: to.hash, behavior: 'smooth' }
