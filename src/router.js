@@ -17,6 +17,19 @@ export const router = createRouter({
     { path: '/donate', name: 'donate', component: DonatePage },
     { path: '/ehnewtab', name: 'ehnewtab', component: EhNewTabPage },
     { path: '/license', name: 'license', component: () => import('./pages/LicensePage.vue') },
+    { path: '/terms', name: 'terms', component: () => import('./pages/TermsPage.vue') },
+    {
+      path: '/legal/api/tos',
+      name: 'legal-api-tos',
+      component: () => import('./pages/LegalDocPage.vue'),
+      meta: { doc: 'api-tos' }
+    },
+    {
+      path: '/legal/api/privacy',
+      name: 'legal-api-privacy',
+      component: () => import('./pages/LegalDocPage.vue'),
+      meta: { doc: 'api-privacy' }
+    },
     { path: '/:pathMatch(.*)*', name: 'error', component: ErrorPage, props: { code: 404 } }
   ],
   scrollBehavior(to) {

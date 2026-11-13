@@ -1,0 +1,21 @@
+The API is free to use for whatever general stuff you want, as long as you stay within these rules:
+
+- do not spam, flood, or try to break the API
+- respect the rate limits
+- do not use it for anything illegal
+- do not use it to harass, target, or hurt people
+- the API can change, break, or go away at any time, and comes as is with no warranty
+- self hosting is fine, but your own instance runs on your own rules and your own storage
+
+## for players of Over The Limits for Female Gender Mod
+
+If you are a player of Over The Limits for Female Gender Mod and you opt in, there are some rules apart from the general use:
+
+- only register and upload your own minecraft uuid, no impersonating anyone and no configs for uuids that are not yours
+- follow the account rules of the instance you are using
+- what you sync can be seen by other players using the mod, and by servers that run the relay
+- do not use the sync for anything the general rules already forbid
+
+If you do not agree with any of this, simply do not use it, search another instance, or host it yourself.
+
+Anything about this: me@ehis.gay

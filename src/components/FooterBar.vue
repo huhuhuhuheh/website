@@ -46,6 +46,7 @@ function onToggle(event) {
     </div>
 
     <span class="links">
+      <RouterLink to="/terms" class="license">terms</RouterLink>
       <RouterLink to="/license" class="license">licensed under 0BSD</RouterLink>
       <a
         class="license source"

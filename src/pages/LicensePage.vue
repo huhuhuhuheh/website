@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import BracketNav from '../components/BracketNav.vue'
 import { nav } from '../data/nav'
 import licenses from '../data/licenses.json'
@@ -95,6 +96,11 @@ function toggle(pkg) {
     <h1>licenses</h1>
     <BracketNav :items="nav" />
 
+    <p class="terms-hint">
+      If you are here to read the terms of service &amp; Privacy Policy,
+      <RouterLink to="/terms">go here!</RouterLink>
+    </p>
+
     <div class="panel">
       <p>
         Hi! For the legal part while being simple, the website is licensed under the
@@ -184,6 +190,14 @@ function toggle(pkg) {
 <style scoped>
 .license-page {
   gap: 1rem;
+}
+
+.terms-hint {
+  color: var(--text);
+}
+
+.terms-hint a {
+  color: var(--pink);
 }
 
 .legal {

@@ -1,9 +1,37 @@
+import { legalServices } from '../../src/data/legal.js'
+
 const SITE = 'https://ehis.gay'
 const PINK = 0xf2c6de
 const PINK_MID = 0xd494b7
 const LOGO = `${SITE}/src/img/icon.png`
 
 const linkButton = (url, label) => ({ type: 2, style: 5, url, label })
+
+function legalUrl(link) {
+  if (!link) return ''
+  if (link.href) return link.href
+  if (link.to) return `${SITE}${link.to}`
+  return ''
+}
+
+function legalButtons(kind) {
+  return legalServices
+    .map((service) => {
+      const link = service[kind]
+      const url = legalUrl(link)
+      return url ? linkButton(url, `${service.name} ${link.label}`) : null
+    })
+    .filter(Boolean)
+}
+
+function legalRows(kind) {
+  const buttons = legalButtons(kind)
+  const rows = []
+  for (let i = 0; i < buttons.length; i += 5) {
+    rows.push({ type: 1, components: buttons.slice(i, i + 5) })
+  }
+  return rows
+}
 
 export const discordEmbeds = {
   '/': {
@@ -220,6 +248,88 @@ export const discordEmbeds = {
         components: [
           linkButton(`${SITE}/donate`, 'Donate'),
           linkButton('https://ko-fi.com/whyiexist', 'Ko-fi')
+        ]
+      }
+    ]
+  },
+
+  '/terms': {
+    accentColor: PINK_MID,
+    og: {
+      title: 'Terms',
+      description: 'terms of service and privacy policies for the services.',
+      image: LOGO
+    },
+    components: [
+      {
+        type: 9,
+        components: [
+          {
+            type: 10,
+            content: `## [Terms](${SITE}/terms)\nservices that have terms of service and privacy policies because of legal shenanigans.`
+          }
+        ],
+        accessory: { type: 11, media: { url: LOGO } }
+      },
+      { type: 14, spacing: 1 },
+      ...legalRows('terms'),
+      ...legalRows('privacy')
+    ]
+  },
+
+  '/legal/api/tos': {
+    accentColor: PINK,
+    og: {
+      title: 'api.ehis.gay terms of service',
+      description: 'free to use for general stuff, with a few rules for the boobs sync.',
+      image: LOGO
+    },
+    components: [
+      {
+        type: 9,
+        components: [
+          {
+            type: 10,
+            content: `## [api.ehis.gay terms](${SITE}/legal/api/tos)\nfree to use for general stuff, with a few rules for the boobs sync.`
+          }
+        ],
+        accessory: { type: 11, media: { url: LOGO } }
+      },
+      { type: 14, spacing: 1 },
+      {
+        type: 1,
+        components: [
+          linkButton(`${SITE}/legal/api/privacy`, 'Privacy'),
+          linkButton(`${SITE}/terms`, 'All terms')
+        ]
+      }
+    ]
+  },
+
+  '/legal/api/privacy': {
+    accentColor: PINK,
+    og: {
+      title: 'api.ehis.gay privacy policy',
+      description: 'what actually happens with your data.',
+      image: LOGO
+    },
+    components: [
+      {
+        type: 9,
+        components: [
+          {
+            type: 10,
+            content: `## [api.ehis.gay privacy](${SITE}/legal/api/privacy)\nwhat actually happens with your data.`
+          }
+        ],
+        accessory: { type: 11, media: { url: LOGO } }
+      },
+      { type: 14, spacing: 1 },
+      {
+        type: 1,
+        components: [
+          linkButton(`${SITE}/legal/api/tos`, 'Terms'),
+          linkButton(`${SITE}/terms`, 'All terms')
         ]
       }
     ]

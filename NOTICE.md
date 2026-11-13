@@ -1,8 +1,12 @@
 # Notice legal thingy!
 
+If you are here to read the terms of service & Privacy Policy,
+[go here!](https://ehis.gay/terms)
+
 Hi! For the legal part while being simple, the website is licensed under the
-BSD Zero Clause License (0BSD), so you can do whatever you want with this as
-whatever you want, building steps are in the README.
+[BSD Zero Clause License (0BSD)](https://opensource.org/license/0bsd), so you can do whatever you want with this as
+whatever you want, building steps are in the
+[README](https://github.com/huhuhuhuheh/website#readme).
 
 BSD Zero Clause License (0BSD)
 
@@ -23,7 +27,9 @@ PERFORMANCE OF THIS SOFTWARE.
 this only covers the code
 =======================
 
-the license only applies to this code. any of the following, but not limited to:
+the license only applies to this code, the
+[license page](https://ehis.gay/license) has the same thing with the dependency list.
+any of the following, but not limited to:
 
 - anime, game and other wallpapers, artwork and screenshots under public/src/img/
 - downloadable archives under public/src/dl/ (cursor packs, Minecraft modpacks,
