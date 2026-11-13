@@ -1,12 +1,12 @@
 This is the boring legal part, so here is what actually happens with your data.
 
-## the general API
+## The general API
 
 - no account or key is needed for the general endpoints
 - IP addresses are only used in memory for rate limiting, and are not written to the database
 - no analytics, no ads, no tracking profiles, and nothing is sold or shared with anyone else
 
-## the over the limits sync
+## The over the limits sync
 
 - what gets stored: your minecraft uuid, the over limit values you sync (just numbers like bust size, offsets, cleavage, voice pitch, bounce and floppy multipliers), a hashed token that lets you update or delete your own data, and the time your config was last updated
 - other players using the mod can see the values you synced, that is the whole point of the feature

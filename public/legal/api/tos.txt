@@ -7,7 +7,7 @@ The API is free to use for whatever general stuff you want, as long as you stay 
 - the API can change, break, or go away at any time, and comes as is with no warranty
 - self hosting is fine, but your own instance runs on your own rules and your own storage
 
-## for players of Over The Limits for Female Gender Mod
+## For players of Over The Limits for Female Gender Mod
 
 If you are a player of Over The Limits for Female Gender Mod and you opt in, there are some rules apart from the general use:
 
