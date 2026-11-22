@@ -409,8 +409,10 @@ async function compositeBlob(ext) {
 
 async function confirmDownload(bundle) {
   downloadOpen.value = false
-  downloadPng()
-  if (!bundle) return
+  if (!bundle) {
+    downloadPng()
+    return
+  }
 
   const avatar = activeAvatarItem.value
   const hat = activeHat.value
