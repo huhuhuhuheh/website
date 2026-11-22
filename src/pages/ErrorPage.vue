@@ -11,6 +11,28 @@ const props = defineProps({
 const route = useRoute()
 
 const CUTE = {
+  303: [
+    'that page is over there, no, the other over there :3',
+    'see other? i see only a redirect and a confused cat',
+    'this page sent me somewhere else without saying goodbye',
+    '303: the answer is elsewhere, my paws are not',
+    'i asked for the page and it handed me a map instead',
+    'the resource moved, but it left a forwarding note',
+    'redirect.exe has stopped being subtle',
+    'you wanted that thing, here is a different thing :c',
+    'the page is shy and sent a substitute',
+    'POST asked, GET went, classic family drama',
+    'it saw another page and ran off to hug it',
+    'not here, but also not lost, just elsewhere',
+    'my compass points to a confirmation screen',
+    'the redirect is wearing a tiny disguise',
+    'follow the arrow, little traveler, it lies',
+    '303: see other, meaning "not this one, silly"',
+    'the page played musical chairs and lost',
+    'i got redirected so hard my whiskers spun',
+    'this link is a treasure map with no treasure',
+    'go GET the real page, this one is just a signpost'
+  ],
   400: [
     "i didn't understand that one, my brain went mrrp :c",
     'that request was gibberish even to me',

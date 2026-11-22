@@ -424,6 +424,7 @@ export const discordEmbeds = {
 }
 
 const ERROR_NAMES = {
+  303: 'See Other',
   400: 'Bad Request',
   401: 'Unauthorized',
   403: 'Forbidden',
@@ -448,6 +449,7 @@ const ERROR_NAMES = {
 }
 
 const ERROR_COPY = {
+  303: 'that page is over there, no, the other over there :3',
   400: "i didn't understand that one, my brain went mrrp :c",
   401: 'who even are you? log in first, stranger :3',
   403: "nuh uh, this one's guarded, not for you (yet)",
