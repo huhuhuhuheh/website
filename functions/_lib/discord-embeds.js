@@ -68,8 +68,8 @@ function absolute(origin, url) {
   }
 }
 
-export function buildEmbedPage({ origin, pathname, entry }) {
-  const pageUrl = `${origin}${pathname}`
+export function buildEmbedPage({ origin, pathname, search = '', entry }) {
+  const pageUrl = `${origin}${pathname}${search}`
   const og = entry.og || {}
   const title = og.title || entry.title || 'eh'
   const description = og.description || ''
@@ -80,6 +80,7 @@ export function buildEmbedPage({ origin, pathname, entry }) {
 
   const head = [
     '<meta charset="utf-8">',
+    `<link rel="icon" type="image/png" href="${escapeHtml(`${origin}/src/img/icon.png`)}">`,
     `<title>${escapeHtml(title)}</title>`,
     `<meta property="og:title" content="${escapeHtml(title)}">`,
     description ? `<meta property="og:description" content="${escapeHtml(description)}">` : '',
@@ -101,14 +102,25 @@ ${head}
 </html>`
 }
 
-export function discordEmbedResponse(request, registry) {
+export function discordEmbedResponse(request, registry, errorRegistry) {
   if (!isDiscordEmbedRequest(request)) return null
 
   const url = new URL(request.url)
-  const entry = resolveEmbed(registry, url.pathname)
+  const code = url.searchParams.get('code')
+  const key = code && /^\d{3}$/.test(code) ? code : null
+  const entry =
+    (key && errorRegistry && (errorRegistry[key] || errorRegistry.default)) ||
+    resolveEmbed(registry, url.pathname) ||
+    (errorRegistry && errorRegistry['404']) ||
+    resolveEmbed(registry, '*')
   if (!entry) return null
 
-  const html = buildEmbedPage({ origin: url.origin, pathname: url.pathname, entry })
+  const html = buildEmbedPage({
+    origin: url.origin,
+    pathname: url.pathname,
+    search: url.search,
+    entry
+  })
 
   return new Response(request.method.toUpperCase() === 'HEAD' ? null : html, {
     headers: {

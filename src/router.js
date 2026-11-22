@@ -5,6 +5,7 @@ import WallpapersPage from './pages/WallpapersPage.vue'
 import DownloadsPage from './pages/DownloadsPage.vue'
 import DonatePage from './pages/DonatePage.vue'
 import EhNewTabPage from './pages/EhNewTabPage.vue'
+import SantaHatPage from './pages/SantaHatPage.vue'
 import ErrorPage from './pages/ErrorPage.vue'
 
 export const router = createRouter({
@@ -16,6 +17,7 @@ export const router = createRouter({
     { path: '/downloads', name: 'downloads', component: DownloadsPage },
     { path: '/donate', name: 'donate', component: DonatePage },
     { path: '/ehnewtab', name: 'ehnewtab', component: EhNewTabPage },
+    { path: '/santa-hat-pfp', name: 'santa-hat-pfp', component: SantaHatPage },
     { path: '/license', name: 'license', component: () => import('./pages/LicensePage.vue') },
     { path: '/terms', name: 'terms', component: () => import('./pages/TermsPage.vue') },
     {

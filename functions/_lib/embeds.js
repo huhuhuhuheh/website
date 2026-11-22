@@ -360,5 +360,148 @@ export const discordEmbeds = {
         components: [linkButton('https://github.com/huhuhuhuheh/website', 'Source on GitHub')]
       }
     ]
+  },
+
+  '/santa-hat-pfp': {
+    accentColor: PINK,
+    og: {
+      title: 'Santa Hat',
+      description: 'Voices are getting jolly, so your avatar can have a little santa hat!',
+      image: LOGO
+    },
+    components: [
+      {
+        type: 9,
+        components: [
+          {
+            type: 10,
+            content: `## [Santa Hat](${SITE}/santa-hat-pfp)\nput a little santa hat on your avatar, then download the raw image or a bundle so you can change back.`
+          }
+        ],
+        accessory: { type: 11, media: { url: LOGO } }
+      },
+      { type: 14, spacing: 1 },
+      {
+        type: 1,
+        components: [
+          linkButton(`${SITE}/santa-hat-pfp`, 'Make one'),
+          linkButton(`${SITE}/stuff`, 'Stuff'),
+          linkButton(`${SITE}/license`, 'License')
+        ]
+      }
+    ]
+  },
+
+  '*': {
+    accentColor: PINK_MID,
+    og: {
+      title: 'eh',
+      description: "that page doesn't exist, and that's okay :3",
+      image: LOGO
+    },
+    components: [
+      {
+        type: 9,
+        components: [
+          {
+            type: 10,
+            content: `## [eh](${SITE})\nthis page doesn't exist (or eh forgot to add it). want to go home instead?`
+          }
+        ],
+        accessory: { type: 11, media: { url: LOGO } }
+      },
+      { type: 14, spacing: 1 },
+      {
+        type: 1,
+        components: [
+          linkButton(`${SITE}`, 'Home'),
+          linkButton(`${SITE}/stuff`, 'Stuff'),
+          linkButton(`${SITE}/terms`, 'Terms')
+        ]
+      }
+    ]
   }
+}
+
+const ERROR_NAMES = {
+  400: 'Bad Request',
+  401: 'Unauthorized',
+  403: 'Forbidden',
+  404: 'Not Found',
+  405: 'Method Not Allowed',
+  406: 'Not Acceptable',
+  408: 'Request Timeout',
+  409: 'Conflict',
+  410: 'Gone',
+  413: 'Content Too Large',
+  414: 'URI Too Long',
+  418: "I'm a Teapot",
+  422: 'Unprocessable Content',
+  429: 'Too Many Requests',
+  451: 'Unavailable For Legal Reasons',
+  500: 'Internal Server Error',
+  501: 'Not Implemented',
+  502: 'Bad Gateway',
+  503: 'Service Unavailable',
+  504: 'Gateway Timeout',
+  505: 'HTTP Version Not Supported'
+}
+
+const ERROR_COPY = {
+  400: "i didn't understand that one, my brain went mrrp :c",
+  401: 'who even are you? log in first, stranger :3',
+  403: "nuh uh, this one's guarded, not for you (yet)",
+  404: 'this page ran off and i lost it :c',
+  405: "that's the wrong door, try knocking another way",
+  406: "i can't give you that in a shape you'd like, sorry",
+  408: 'you took too long and i fell asleep waiting zzz',
+  409: 'we both changed the same thing at once, awkward',
+  410: 'it used to live here, it moved out forever ago',
+  413: "that's too much, you'll make me explode :c",
+  414: 'that url is comically long, i gave up reading it',
+  418: 'teapot mode engaged, brewing nothing',
+  422: 'i understood the words but not the meaning mrrp',
+  429: "slow down!! you're spinning me dizzy :c",
+  451: 'the lawyers said this one is a no-no :3',
+  500: 'something exploded on my end, not your fault this time',
+  501: "i don't know how to do that one yet, learning!",
+  502: 'the server forgot how to speak, awkward',
+  503: "i'm napping, poke me again in a bit zzz",
+  504: 'the server thought too hard and timed out',
+  505: 'wrong internet version, i only speak the cool one',
+  default: "something went wrong and honestly even i don't know what"
+}
+
+function errorEntry(code) {
+  const known = Object.hasOwn(ERROR_COPY, code)
+  const text = ERROR_COPY[code] || ERROR_COPY.default
+  const display = known ? `${code} ${ERROR_NAMES[code] || ''}`.trim() : 'error'
+  const image = known ? `https://http.cat/${code}.jpg` : LOGO
+  const link = known ? `${SITE}/?code=${code}` : SITE
+
+  return {
+    accentColor: PINK_MID,
+    og: { title: `${display} · ehis.gay`, description: text, image },
+    components: [
+      {
+        type: 9,
+        components: [{ type: 10, content: `## [${display}](${link})\n${text}` }],
+        accessory: { type: 11, media: { url: image } }
+      },
+      { type: 14, spacing: 1 },
+      {
+        type: 1,
+        components: [
+          linkButton(`${SITE}`, 'Home'),
+          linkButton(`${SITE}/stuff`, 'Stuff'),
+          linkButton(`${SITE}/terms`, 'Terms')
+        ]
+      }
+    ]
+  }
+}
+
+export const discordErrorEmbeds = {
+  ...Object.fromEntries(Object.keys(ERROR_COPY).filter((key) => key !== 'default').map((code) => [code, errorEntry(code)])),
+  default: errorEntry('default')
 }
