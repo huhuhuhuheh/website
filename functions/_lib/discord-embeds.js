@@ -1,6 +1,8 @@
 const DISCORDBOT_UA = /discordbot/i
 const HTML_ACCEPT = /text\/html|application\/xhtml\+xml|\*\/\*/i
 const MAX_PAYLOAD_BYTES = 3000
+const ASSET_PREFIXES = ['/src/', '/assets/', '/favicon', '/legal/']
+const FILE_EXTENSION = /\.[a-z0-9]+$/i
 
 export function isDiscordEmbedRequest(request) {
   const method = request.method.toUpperCase()
@@ -11,6 +13,15 @@ export function isDiscordEmbedRequest(request) {
 
   const accept = request.headers.get('accept') || ''
   if (accept && !HTML_ACCEPT.test(accept)) return false
+
+  let pathname
+  try {
+    pathname = new URL(request.url).pathname
+  } catch {
+    return false
+  }
+  if (FILE_EXTENSION.test(pathname)) return false
+  if (ASSET_PREFIXES.some((prefix) => pathname.startsWith(prefix))) return false
 
   return true
 }

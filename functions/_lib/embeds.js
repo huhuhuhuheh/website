@@ -375,7 +375,7 @@ export const discordEmbeds = {
         components: [
           {
             type: 10,
-            content: `## [Santa Hat](${SITE}/santa-hat-pfp)\nput a little santa hat on your avatar, then download the raw image or a bundle so you can change back.`
+            content: `## [Santa Hat](${SITE}/santa-hat-pfp)\nVoices are getting jolly, so your avatar can have a little santa hat!`
           }
         ],
         accessory: { type: 11, media: { url: LOGO } }
