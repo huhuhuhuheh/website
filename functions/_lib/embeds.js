@@ -487,15 +487,6 @@ function errorEntry(code) {
         type: 9,
         components: [{ type: 10, content: `## [${display}](${link})\n${text}` }],
         accessory: { type: 11, media: { url: image } }
-      },
-      { type: 14, spacing: 1 },
-      {
-        type: 1,
-        components: [
-          linkButton(`${SITE}`, 'Home'),
-          linkButton(`${SITE}/stuff`, 'Stuff'),
-          linkButton(`${SITE}/terms`, 'Terms')
-        ]
       }
     ]
   }
