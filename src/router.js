@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from './pages/HomePage.vue'
 import StuffPage from './pages/StuffPage.vue'
+import MarkdownEditor from './pages/MarkdownEditor.vue'
 import WallpapersPage from './pages/WallpapersPage.vue'
 import DownloadsPage from './pages/DownloadsPage.vue'
 import DonatePage from './pages/DonatePage.vue'
@@ -13,6 +14,7 @@ export const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomePage },
     { path: '/stuff', name: 'stuff', component: StuffPage },
+    { path: '/editor', name: 'editor', component: MarkdownEditor },
     { path: '/wallpapers', name: 'wallpapers', component: WallpapersPage },
     { path: '/downloads', name: 'downloads', component: DownloadsPage },
     { path: '/donate', name: 'donate', component: DonatePage },

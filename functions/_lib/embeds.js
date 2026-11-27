@@ -94,6 +94,36 @@ export const discordEmbeds = {
     ]
   },
 
+  '/editor': {
+    accentColor: PINK_MID,
+    og: {
+      title: 'Editor',
+      description: 'edit markdown, render it, and copy it out for GitHub, Modrinth or CurseForge.',
+      image: LOGO
+    },
+    components: [
+      {
+        type: 9,
+        components: [
+          {
+            type: 10,
+            content: `## [Editor](${SITE}/editor)\nedit markdown, render it, and copy it out for GitHub, Modrinth or CurseForge.`
+          }
+        ],
+        accessory: { type: 11, media: { url: LOGO } }
+      },
+      { type: 14, spacing: 1 },
+      {
+        type: 1,
+        components: [
+          linkButton(`${SITE}/editor`, 'Open editor'),
+          linkButton(`${SITE}/stuff`, 'Stuff'),
+          linkButton(`${SITE}/wallpapers`, 'Wallpapers')
+        ]
+      }
+    ]
+  },
+
   '/ehnewtab': {
     accentColor: PINK,
     og: {
